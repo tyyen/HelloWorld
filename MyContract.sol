@@ -5,24 +5,24 @@ contract MyContract {
     uint myVariable;
     address owner;
     
-    modifier onlyowner(){
+    /*modifier onlyowner(){
         if(owner == msg.sender){
             _; //do whatever is in the function(setMyVariable)
         }
         else {
             throw;
         }
-    }
+    }*/
     
     function MyContract() payable {
         myVariable = 5;
         owner = msg.sender;
     }
     
-    function setMyVariable(uint myNewVariable) onlyowner{  //only owner can set variable
-        //if(msg.sender == owner){  //if adding "onlyowner", we don't need to write down this if statment
+    function setMyVariable(uint myNewVariable) onlyowner{  
+        if(msg.sender == owner){  
             myVariable = myNewVariable;
-        //}
+        }
     }
     
     function getMyVariable() constant returns(uint) {
@@ -34,12 +34,12 @@ contract MyContract {
     }
     
     function kill() onlyowner {
-        //if(msg.sender == owner){
+        if(msg.sender == owner){
             suicide(owner);
-        /*}
+        }
         else{
             throw;
-        }*/
+        }
     }
     
     function () payable {
