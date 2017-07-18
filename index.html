@@ -4,6 +4,10 @@
 		<title>myDapp</title>
 		<script src="dist/web3.js"></script>
 		<script type="text/javascript">
+		
+			var contract_address = "0x66EbA2173fdc0244893A3acDbAc1648B6c8059E0";
+			car contract_abi = [ { "constant": true, "inputs": [], "name": "getCreator", "outputs": [ { "name": "", "type": "address", "value": "0x2a07b6a3a6f70ea4715d93c257695e5dc201906a" } ], "payable": false, "type": "function" }, { "constant": false, "inputs": [ { "name": "myNewNumber", "type": "uint256" } ], "name": "setNumber", "outputs": [], "payable": false, "type": "function" }, { "constant": false, "inputs": [], "name": "kill", "outputs": [], "payable": false, "type": "function" }, { "constant": true, "inputs": [], "name": "getMyNumber", "outputs": [ { "name": "", "type": "uint256", "value": "3" } ], "payable": false, "type": "function" }, { "inputs": [], "payable": false, "type": "constructor" } ]
+			
 			if (typeof web3 !== 'undefined') {
 					 web3 = new Web3(web3.currentProvider);
 			}
@@ -11,14 +15,19 @@
 					// set the provider you want from Web3.providers
 					  web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
 			}
-			function getBalance() {
-				document.getElementById("myBalance").innerText = web3.eth.getBalance(web3.eth.accounts[0]); 
+			
+			var contract_instance = web3.eth.contract(contract_abi).at(contract_address);
+			
+			function getCounter() {
+				document.getElementById("muCounter").innerText = contract_instance.getMyNumber().toNumber();  //getNumber return object, so we have to add toNumber()
 			}
 		</script>
 	</head>
 	<body>
-			<h1>This is my balance<h1>
-			<button onclick="getBalance()"> Update my balance </button>
-			<span id="myBalance"></span> in Ether
+			<h1>Interact with a contract<h1>
+			<button onclick="getCounter()"> Update a Counter </button>
+			<button onclick="IncreaseCounter()"> Increase Counter </button>
+			
+			<span id="myCounter"></span> Counter
 	</body>
 </html>
