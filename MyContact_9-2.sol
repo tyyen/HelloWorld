@@ -6,7 +6,7 @@ contract MyContract {
 	uint256 = myNumber;
     
     function MyContract() {
-        owner = msg.sender;
+        creator = msg.sender;
 		myNumber = 3;
     }
     
@@ -22,7 +22,7 @@ contract MyContract {
         myNumber = myNewNumber; 
     }
     
-    function kill() onlyowner {
+    function kill() {
         if(msg.sender == creator){
             suicide(creator);
         }
