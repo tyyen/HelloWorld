@@ -3,7 +3,7 @@ pragma solidity ^0.4.0;
 contract MyContract {
     
     address creator;
-	uint256 = myNumber;
+	uint256 myNumber;
     
     function MyContract() {
         creator = msg.sender;
